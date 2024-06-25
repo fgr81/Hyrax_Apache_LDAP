@@ -643,6 +643,11 @@
   <!-- apply to all web applications), or in your own application's web.xml -->
   <!-- deployment descriptor.                                               -->
   <!-- Note: Extensions are always matched in a case-insensitive manner.    -->
+
+    <mime-mapping>
+        <extension>123</extension>
+        <mime-type>application/vnd.lotus-1-2-3</mime-type>
+    </mime-mapping>
     <mime-mapping>
         <extension>3dml</extension>
         <mime-type>text/vnd.in3d.3dml</mime-type>

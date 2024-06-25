@@ -38,6 +38,7 @@ services:
       - $PWD/hyrax/logs:/home/tomcat/apache-tomcat-9.0.65/logs
       - $PWD/hyrax/conf:/home/tomcat/apache-tomcat-9.0.65/conf
       - $PWD/hyrax/conf/olfs.xml:/home/tomcat/apache-tomcat-9.0.65/webapps/opendap/WEB-INF/conf/olfs.xml
+      - $PWD/hyrax/ncWMS2:/home/tomcat/apache-tomcat-9.0.65/webapps/ncWMS2
       - $PWD/certs:/certs
     network_mode: "custom-docker"
     restart: always
