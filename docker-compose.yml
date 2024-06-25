@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  apache:
+    build:
+      context: ./apache
+      args:
+            - AUTH_LDAP_URL=${AUTH_LDAP_URL}
+            - AUTH_LDAP_BIND_DN=${AUTH_LDAP_BIND_DN} 
+            - AUTH_LDAP_BIND_PASSWORD=${AUTH_LDAP_BIND_PASSWORD}
+            - HOSTNAME=${HOSTNAME}
+            - SERVER_ADMIN_MAIL=${SERVER_ADMIN_MAIL}
+    hostname: ${HOSTNAME}
+    container_name: apache
+    volumes:
+      - $PWD/apache/htdocs:/var/www
+      - $PWD/apache/logs:/var/log/apache2
+      - $PWD/certs:/etc/letsencrypt
+    ports:      
+      - 80:80
+      - 443:443
+    environment:
+            - LETS_ENCRYPT_EMAIL=${LETS_ENCRYPT_EMAIL}
+    network_mode: "custom-docker"
+    restart: always
+
+  hyrax:
+    image: opendap/hyrax:1.16.8
+    hostname: hyrax
+    container_name: hyrax
+    depends_on: 
+      - apache
+    ports:
+      - 8009:8009
+      - 8443:8443
+    volumes:
+      - $PWD/hyrax/data:/usr/share/hyrax
+      - $PWD/hyrax/logs:/home/tomcat/apache-tomcat-9.0.65/logs
+      - $PWD/hyrax/conf:/home/tomcat/apache-tomcat-9.0.65/conf
+      - $PWD/hyrax/conf/olfs.xml:/home/tomcat/apache-tomcat-9.0.65/webapps/opendap/WEB-INF/conf/olfs.xml
+      - $PWD/certs:/certs
+    network_mode: "custom-docker"
+    restart: always
