@@ -18,3 +18,4 @@ Hyrax integrates sophisticated authentication via LDAP and resource access autho
 4. ``` docker-compose up -d ```
 
 
+[![DOI](https://zenodo.org/badge/819403840.svg)](https://zenodo.org/doi/10.5281/zenodo.12537436)
